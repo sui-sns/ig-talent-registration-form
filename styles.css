@@ -14,7 +14,7 @@ body { margin: 0; background: #f3f7fc; color: var(--ink); }
 .hero { text-align: center; margin-bottom: 32px; }
 .eyebrow { margin: 0 0 8px; color: var(--blue); font-size: .78rem; font-weight: 800; letter-spacing: .14em; }
 h1 { margin: 0; font-size: clamp(1.8rem, 6vw, 2.5rem); }
-.hero p, .lead, .skill-years p { color: var(--muted); line-height: 1.7; }
+.hero p, .lead { color: var(--muted); line-height: 1.7; }
 .progress { margin: 0 4px 18px; font-weight: 700; font-size: .85rem; }
 .progress-track { height: 6px; margin-top: 9px; background: #dce6f2; border-radius: 999px; overflow: hidden; }
 .progress-track i { display: block; width: 25%; height: 100%; background: var(--blue); transition: width .2s; }
@@ -38,7 +38,7 @@ input:focus { outline: 3px solid #bcd4ff; border-color: var(--blue); }
 .category { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
 .category:first-child { margin-top: 0; padding-top: 0; border: 0; }
 .category h3 { margin-bottom: 2px; }
-.skill-years { margin-top: 32px; padding: 22px; border-radius: 12px; background: var(--blue-soft); }
+.skill-inline-years { margin-top: 14px; padding: 4px 18px; border-radius: 12px; background: var(--blue-soft); }
 .skill-year-row { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #cfddf1; font-weight: 700; }
 .skill-year-row:last-child { border: 0; }
 .skill-year-row .choices { margin: 0; }
