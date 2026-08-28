@@ -138,11 +138,11 @@ function restoreChoiceButtons() {
 }
 
 function renderSkillYears() {
-  Object.entries(skillCategories).forEach(([category, skills]) => {
-    const list = document.querySelector(`[data-category="${category}"]`);
+  document.querySelectorAll(".skill-inline-years").forEach((list) => {
+    const skills = skillCategories[list.dataset.category];
     const selectedCategorySkills = skills.filter((skill) => selectedSkills.has(skill));
     list.replaceChildren();
-    list.hidden = selectedCategorySkills.length === 0;
+    list.toggleAttribute("hidden", selectedCategorySkills.length === 0);
 
     selectedCategorySkills.forEach((skill) => {
       const row = document.createElement("div");
