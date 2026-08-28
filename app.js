@@ -1,4 +1,4 @@
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbxX_4kOqianK4S9MzwmJM6IWKh801ckgkkk9y5t2fqJlAclwGJNDIZdknZTF3ynVRW0Ew/exec";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbzOgL7KvsDCKI9XNxVsYCRLqcuwmGJzzx_tLFBUOYVooAokDaLFAFTSLvJ4-BBpgzeBog/exec";
 const form = document.querySelector("#registration-form");
 const steps = [...document.querySelectorAll(".step")];
 const progressLabel = document.querySelector("#progress-label");
@@ -205,13 +205,35 @@ function validateStep() {
   return true;
 }
 
-function collectData() {
+async function readResumeFile() {
+  const file = form.elements.resume.files[0];
+  if (!file) return null;
+  const extension = file.name.split(".").pop().toLowerCase();
+  if (!["pdf", "doc", "docx"].includes(extension) || file.size > 5 * 1024 * 1024) {
+    throw new Error("職務経歴書はPDF・Word形式、5MB以下で選択してください。");
+  }
+  const dataUrl = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+  return {
+    fileName: file.name,
+    mimeType: file.type || "application/octet-stream",
+    base64: dataUrl.split(",")[1],
+  };
+}
+
+async function collectData() {
   const data = Object.fromEntries(new FormData(form).entries());
+  delete data.resume;
   return {
     ...data,
     ...answers,
     skills: [...selectedSkills],
     skillExperience,
+    resumeFile: await readResumeFile(),
     submittedAt: new Date().toISOString(),
   };
 }
@@ -225,14 +247,14 @@ async function submitForm(event) {
     const response = await fetch(ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(collectData()),
+      body: JSON.stringify(await collectData()),
     });
     if (!response.ok) throw new Error("送信に失敗しました。");
     sessionStorage.removeItem(PROGRESS_KEY);
     form.hidden = true;
     document.querySelector("#success").hidden = false;
   } catch (error) {
-    errorBox.textContent = "送信できませんでした。時間をおいて再度お試しください。";
+    errorBox.textContent = error.message || "送信できませんでした。時間をおいて再度お試しください。";
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = "登録する";
