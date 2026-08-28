@@ -35,7 +35,7 @@
             <label>ふりがな <b>必須</b><input name="nameKana" required autocomplete="name" placeholder="例：さとう たろう" /></label>
             <label>生年月日 <b>必須</b><input name="birthDate" type="date" required /></label>
             <label>メールアドレス <b>必須</b><input name="email" type="email" required autocomplete="email" /></label>
-            <label>電話番号 <b>必須</b><input name="phone" type="tel" required autocomplete="tel" /></label>
+            <label>電話番号 <b>必須</b><input name="phone" type="tel" inputmode="numeric" pattern="0[0-9]{9,10}" required autocomplete="tel" placeholder="例：09012345678（ハイフンなし）" /></label>
             <label>お住まいの都道府県 <b>必須</b><input name="prefecture" required placeholder="例：東京都" /></label>
             <label>LinkedInプロフィールURL<input name="linkedinUrl" type="url" placeholder="お持ちの場合のみ" /></label>
             <label>職務経歴書・スキルシート<input name="resume" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" /><small>PDF・Word形式、5MBまで</small></label>
@@ -123,6 +123,6 @@
       </form>
       <section id="success" class="success" hidden><h2>ご登録ありがとうございます。</h2><p>条件に合う案件・採用情報がある場合、イグニッション・ギルドよりご連絡します。</p></section>
     </main>
-    <script src="app.js?v=20260828-1515"></script>
+    <script src="app.js?v=20260828-1519"></script>
   </body>
 </html>
