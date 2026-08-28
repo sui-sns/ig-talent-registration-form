@@ -12,6 +12,7 @@ let currentStep = 1;
 const answers = {};
 const selectedSkills = new Set();
 const skillExperience = {};
+const PROGRESS_KEY = "ig-talent-registration-form-progress";
 
 const skillCategories = {
   "プロジェクト・企画・PM": [
@@ -43,6 +44,45 @@ function createChoiceButton(value, className = "") {
   return button;
 }
 
+function saveProgress() {
+  try {
+    const inputs = [...form.querySelectorAll("input[name]")].map((input) => ({
+      name: input.name,
+      type: input.type,
+      value: input.value,
+      checked: input.checked,
+    }));
+    sessionStorage.setItem(PROGRESS_KEY, JSON.stringify({
+      currentStep,
+      answers,
+      skills: [...selectedSkills],
+      skillExperience,
+      inputs,
+    }));
+  } catch {
+    // The form remains usable when browser storage is unavailable.
+  }
+}
+
+function restoreProgress() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(PROGRESS_KEY));
+    if (!saved) return;
+    currentStep = Math.min(Math.max(saved.currentStep || 1, 1), steps.length);
+    Object.assign(answers, saved.answers || {});
+    (saved.skills || []).forEach((skill) => selectedSkills.add(skill));
+    Object.assign(skillExperience, saved.skillExperience || {});
+    (saved.inputs || []).forEach(({ name, type, value, checked }) => {
+      const input = form.querySelector(`[name="${name}"]`);
+      if (!input) return;
+      if (type === "checkbox") input.checked = checked;
+      else input.value = value;
+    });
+  } catch {
+    sessionStorage.removeItem(PROGRESS_KEY);
+  }
+}
+
 function renderCategories() {
   const container = document.querySelector("#skill-categories");
   Object.entries(skillCategories).forEach(([category, skills]) => {
@@ -54,6 +94,7 @@ function renderCategories() {
     skills.forEach((skill) => {
       const button = createChoiceButton(skill);
       button.dataset.skill = skill;
+      button.classList.toggle("is-selected", selectedSkills.has(skill));
       choices.append(button);
     });
     const inlineYears = document.createElement("div");
@@ -68,6 +109,32 @@ function renderCategories() {
 function renderOptions(containerId, values) {
   const container = document.querySelector(containerId);
   values.forEach((value) => container.append(createChoiceButton(value)));
+}
+
+function multiAnswerKey(group) {
+  return group.id === "development-process" ? "developmentProcess"
+    : group.id === "work-days" ? "workDays"
+      : group.id === "work-style" ? "workStyle" : "igInvolvement";
+}
+
+function restoreChoiceButtons() {
+  document.querySelectorAll("[data-single]").forEach((group) => {
+    const selected = answers[group.dataset.single];
+    group.querySelectorAll("button").forEach((button) => {
+      button.classList.toggle("is-selected", button.dataset.value === selected);
+    });
+  });
+  document.querySelectorAll(".choices.multi").forEach((group) => {
+    if (group.closest(".category")) return;
+    const selected = answers[multiAnswerKey(group)] || [];
+    group.querySelectorAll("button").forEach((button) => {
+      button.classList.toggle("is-selected", selected.includes(button.dataset.value));
+    });
+  });
+  document.querySelector("[name='contactMethodOther']").classList.toggle(
+    "is-visible",
+    answers.contactMethod === "その他",
+  );
 }
 
 function renderSkillYears() {
@@ -161,6 +228,7 @@ async function submitForm(event) {
       body: JSON.stringify(collectData()),
     });
     if (!response.ok) throw new Error("送信に失敗しました。");
+    sessionStorage.removeItem(PROGRESS_KEY);
     form.hidden = true;
     document.querySelector("#success").hidden = false;
   } catch (error) {
@@ -186,6 +254,7 @@ document.addEventListener("click", (event) => {
     }
     answers.skills = [...selectedSkills];
     renderSkillYears();
+    saveProgress();
     return;
   }
 
@@ -193,6 +262,7 @@ document.addEventListener("click", (event) => {
   if (skillYearFor) {
     skillExperience[skillYearFor] = button.dataset.value;
     renderSkillYears();
+    saveProgress();
     return;
   }
 
@@ -207,28 +277,34 @@ document.addEventListener("click", (event) => {
     }
   } else {
     button.classList.toggle("is-selected");
-    const groupName = group.id === "development-process" ? "developmentProcess"
-      : group.id === "work-days" ? "workDays"
-        : group.id === "work-style" ? "workStyle" : "igInvolvement";
+    const groupName = multiAnswerKey(group);
     answers[groupName] = [...group.querySelectorAll(".is-selected")].map((item) => item.dataset.value);
   }
+  saveProgress();
 });
 
 nextButton.addEventListener("click", () => {
   if (validateStep()) {
     currentStep += 1;
     updateStep();
+    saveProgress();
   }
 });
 backButton.addEventListener("click", () => {
   currentStep -= 1;
   updateStep();
+  saveProgress();
 });
+form.addEventListener("input", saveProgress);
+form.addEventListener("change", saveProgress);
 form.addEventListener("submit", submitForm);
 
+restoreProgress();
 renderCategories();
 renderOptions("#development-process", ["顧客折衝", "要件定義", "基本設計", "詳細設計", "実装", "単体テスト", "結合テスト", "負荷テスト", "脆弱性診断", "総合テスト", "保守・運用"]);
 renderOptions("#work-days", ["週1日", "週2日", "週3日", "週4日", "週5日"]);
 renderOptions("#work-style", ["フルリモート", "ハイブリッド", "常駐可能", "要相談"]);
 renderOptions("#ig-involvement", ["業務委託で案件に参画したい", "イグニッション・ギルドへの転職も検討したい"]);
+restoreChoiceButtons();
+renderSkillYears();
 updateStep();
