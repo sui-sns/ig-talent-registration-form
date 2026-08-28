@@ -29,6 +29,7 @@ legend { padding: 0; }
 b { margin-left: 4px; color: #d1334d; font-size: .72rem; }
 input { display: block; width: 100%; margin-top: 8px; padding: 12px 13px; border: 1px solid #b8c8dc; border-radius: 9px; background: #fff; color: var(--ink); font: inherit; }
 input:focus { outline: 3px solid #bcd4ff; border-color: var(--blue); }
+small { display: block; margin-top: 6px; color: var(--muted); font-size: .78rem; font-weight: 500; }
 .choices { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 11px; }
 .choices button { min-width: 116px; flex: 1 1 130px; padding: 11px 14px; border: 1px solid #9dbcf0; border-radius: 999px; background: #f8fbff; color: #255597; cursor: pointer; font: inherit; font-weight: 700; transition: .15s; }
 .choices button:hover, .choices button.is-selected { border-color: var(--blue); background: var(--blue); color: #fff; }
