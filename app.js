@@ -249,7 +249,10 @@ async function submitForm(event) {
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(await collectData()),
     });
-    if (!response.ok) throw new Error("送信に失敗しました。");
+    const result = await response.json();
+    if (!response.ok || !result.ok) {
+      throw new Error(result.message || "送信に失敗しました。");
+    }
     sessionStorage.removeItem(PROGRESS_KEY);
     form.hidden = true;
     document.querySelector("#success").hidden = false;
