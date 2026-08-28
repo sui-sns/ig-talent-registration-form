@@ -30,7 +30,8 @@
           <h2>基本情報</h2>
           <p class="lead">連絡先とご登録者さまの基本情報を入力してください。</p>
           <div class="field-grid">
-            <label>氏名 <b>必須</b><input name="name" required autocomplete="name" /></label>
+            <label>姓 <b>必須</b><input name="lastName" required autocomplete="family-name" placeholder="例：佐藤" /></label>
+            <label>名 <b>必須</b><input name="firstName" required autocomplete="given-name" placeholder="例：太郎" /></label>
             <label>ふりがな <b>必須</b><input name="nameKana" required autocomplete="name" placeholder="例：さとう たろう" /></label>
             <label>生年月日 <b>必須</b><input name="birthDate" type="date" required /></label>
             <label>メールアドレス <b>必須</b><input name="email" type="email" required autocomplete="email" /></label>
@@ -121,6 +122,6 @@
       </form>
       <section id="success" class="success" hidden><h2>ご登録ありがとうございます。</h2><p>条件に合う案件・採用情報がある場合、イグニッション・ギルドよりご連絡します。</p></section>
     </main>
-    <script src="app.js?v=20260828-1504"></script>
+    <script src="app.js?v=20260828-1506"></script>
   </body>
 </html>
