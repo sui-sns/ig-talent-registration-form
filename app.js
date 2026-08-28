@@ -56,7 +56,11 @@ function renderCategories() {
       button.dataset.skill = skill;
       choices.append(button);
     });
-    section.append(choices);
+    const inlineYears = document.createElement("div");
+    inlineYears.className = "skill-inline-years";
+    inlineYears.dataset.category = category;
+    inlineYears.hidden = true;
+    section.append(choices, inlineYears);
     container.append(section);
   });
 }
@@ -67,27 +71,28 @@ function renderOptions(containerId, values) {
 }
 
 function renderSkillYears() {
-  const section = document.querySelector("#skill-years");
-  const list = document.querySelector("#skill-year-list");
-  list.replaceChildren();
-  const skills = [...selectedSkills];
-  section.hidden = skills.length === 0;
+  Object.entries(skillCategories).forEach(([category, skills]) => {
+    const list = document.querySelector(`[data-category="${category}"]`);
+    const selectedCategorySkills = skills.filter((skill) => selectedSkills.has(skill));
+    list.replaceChildren();
+    list.hidden = selectedCategorySkills.length === 0;
 
-  skills.forEach((skill) => {
-    const row = document.createElement("div");
-    row.className = "skill-year-row";
-    const title = document.createElement("span");
-    title.textContent = skill;
-    const choices = document.createElement("div");
-    choices.className = "choices";
-    yearOptions.forEach((year) => {
-      const button = createChoiceButton(year);
-      button.dataset.skillYearFor = skill;
-      button.classList.toggle("is-selected", skillExperience[skill] === year);
-      choices.append(button);
+    selectedCategorySkills.forEach((skill) => {
+      const row = document.createElement("div");
+      row.className = "skill-year-row";
+      const title = document.createElement("span");
+      title.textContent = `${skill}の実務経験年数`;
+      const choices = document.createElement("div");
+      choices.className = "choices";
+      yearOptions.forEach((year) => {
+        const button = createChoiceButton(year);
+        button.dataset.skillYearFor = skill;
+        button.classList.toggle("is-selected", skillExperience[skill] === year);
+        choices.append(button);
+      });
+      row.append(title, choices);
+      list.append(row);
     });
-    row.append(title, choices);
-    list.append(row);
   });
 }
 
