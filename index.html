@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="イグニッション・ギルドのIT人材登録フォーム"
+    />
+    <title>IG｜IT人材登録</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">IGNITION GUILD</p>
+        <h1>IT人材登録</h1>
+        <p>
+          ご経験や希望条件に合う案件がある場合、イグニッション・ギルドよりご連絡します。
+        </p>
+      </header>
+
+      <div class="progress" aria-label="入力の進捗">
+        <span id="progress-label">1 / 4 基本情報</span>
+        <div class="progress-track"><i id="progress-bar"></i></div>
+      </div>
+
+      <form id="registration-form" novalidate>
+        <section class="step is-active" data-step="1">
+          <h2>基本情報</h2>
+          <p class="lead">連絡先とご登録者さまの基本情報を入力してください。</p>
+          <div class="field-grid">
+            <label>氏名 <b>必須</b><input name="name" required autocomplete="name" /></label>
+            <label>ふりがな <b>必須</b><input name="nameKana" required autocomplete="name" placeholder="例：あいはら ひろあき" /></label>
+            <label>生年月日 <b>必須</b><input name="birthDate" type="date" required /></label>
+            <label>メールアドレス <b>必須</b><input name="email" type="email" required autocomplete="email" /></label>
+            <label>電話番号 <b>必須</b><input name="phone" type="tel" required autocomplete="tel" /></label>
+            <label>お住まいの都道府県 <b>必須</b><input name="prefecture" required placeholder="例：東京都" /></label>
+            <label>LinkedInプロフィールURL<input name="linkedinUrl" type="url" placeholder="お持ちの場合のみ" /></label>
+            <label>現在の所属会社名または屋号<input name="company" placeholder="屋号がない場合は「なし」" /></label>
+          </div>
+          <fieldset>
+            <legend>連絡しやすい方法 <b>必須</b></legend>
+            <div class="choices compact" data-single="contactMethod">
+              <button type="button" data-value="メール">メール</button>
+              <button type="button" data-value="電話">電話</button>
+              <button type="button" data-value="LinkedIn">LinkedIn</button>
+              <button type="button" data-value="その他">その他</button>
+            </div>
+            <input class="conditional" name="contactMethodOther" placeholder="希望する連絡方法を入力" />
+          </fieldset>
+        </section>
+
+        <section class="step" data-step="2">
+          <h2>得意な職種・スキル</h2>
+          <p class="lead">該当するスキルを選ぶと、次にスキルごとの経験年数を入力できます。</p>
+          <div id="skill-categories"></div>
+          <div id="skill-years" class="skill-years" hidden>
+            <h3>スキル別の実務経験年数</h3>
+            <p>選択したスキルごとに、最も近い経験年数を選択してください。</p>
+            <div id="skill-year-list"></div>
+          </div>
+        </section>
+
+        <section class="step" data-step="3">
+          <h2>これまでのご経験</h2>
+          <div class="question-list">
+            <fieldset>
+              <legend>正社員経験年数 <b>必須</b></legend>
+              <div class="choices" data-single="employeeYears">
+                <button type="button" data-value="3年未満">3年未満</button><button type="button" data-value="3年以上">3年以上</button><button type="button" data-value="8年以上">8年以上</button><button type="button" data-value="該当なし">該当なし</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>マネジメント経験年数 <b>必須</b></legend>
+              <div class="choices" data-single="managementYears">
+                <button type="button" data-value="なし">なし</button><button type="button" data-value="1年以上">1年以上</button><button type="button" data-value="3年以上">3年以上</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>チーム開発経験はありますか？ <b>必須</b></legend>
+              <div class="choices" data-single="teamDevelopment">
+                <button type="button" data-value="はい">はい</button><button type="button" data-value="いいえ">いいえ</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>経験されてきた開発工程 <b>必須</b></legend>
+              <div class="choices multi" id="development-process"></div>
+            </fieldset>
+            <fieldset>
+              <legend>経験されてきたプロダクト <b>必須</b></legend>
+              <div class="choices" data-single="productExperience">
+                <button type="button" data-value="受託プロダクト">受託プロダクト</button><button type="button" data-value="自社プロダクト">自社プロダクト</button><button type="button" data-value="両方">両方</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>新規プロジェクト経験はありますか？ <b>必須</b></legend>
+              <div class="choices" data-single="newProject">
+                <button type="button" data-value="はい">はい</button><button type="button" data-value="いいえ">いいえ</button>
+              </div>
+            </fieldset>
+          </div>
+        </section>
+
+        <section class="step" data-step="4">
+          <h2>希望条件</h2>
+          <div class="question-list">
+            <fieldset><legend>現在の状況 <b>必須</b></legend><div class="choices" data-single="currentStatus"><button type="button" data-value="フリーランス">フリーランス</button><button type="button" data-value="経営者">経営者</button><button type="button" data-value="会社員">会社員</button><button type="button" data-value="その他">その他</button></div></fieldset>
+            <fieldset><legend>会社員としての副業を希望ですか？ <b>必須</b></legend><div class="choices" data-single="sideJob"><button type="button" data-value="はい">はい</button><button type="button" data-value="いいえ">いいえ</button><button type="button" data-value="該当なし">該当なし</button></div></fieldset>
+            <label>稼働開始可能時期 <b>必須</b><input name="availableFrom" required placeholder="例：2026年10月〜、要相談" /></label>
+            <fieldset><legend>希望稼働日数 <b>必須</b></legend><div class="choices multi" id="work-days"></div></fieldset>
+            <label>希望単価<input name="desiredRate" placeholder="例：月100万円〜、時給8,000円〜" /></label>
+            <fieldset><legend>希望する働き方 <b>必須</b></legend><div class="choices multi" id="work-style"></div></fieldset>
+            <label>勤務可能エリア<input name="workArea" placeholder="例：東京都内、神奈川県、全国フルリモート" /></label>
+            <fieldset><legend>イグニッション・ギルドとの希望する関わり方 <b>必須</b></legend><div class="choices multi" id="ig-involvement"></div></fieldset>
+            <label class="consent"><input name="privacyConsent" type="checkbox" required /> 入力情報を、案件紹介・採用連絡・人材管理に利用することに同意します。 <b>必須</b></label>
+          </div>
+        </section>
+
+        <p id="form-error" class="form-error" role="alert"></p>
+        <div class="actions">
+          <button id="back-button" type="button" class="secondary" hidden>戻る</button>
+          <button id="next-button" type="button">次へ</button>
+          <button id="submit-button" type="submit" hidden>登録する</button>
+        </div>
+      </form>
+      <section id="success" class="success" hidden><h2>ご登録ありがとうございます。</h2><p>条件に合う案件・採用情報がある場合、イグニッション・ギルドよりご連絡します。</p></section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

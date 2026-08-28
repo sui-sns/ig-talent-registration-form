@@ -1,0 +1,62 @@
+:root {
+  --ink: #123252;
+  --blue: #2463c8;
+  --blue-soft: #edf4ff;
+  --line: #d6e3f5;
+  --muted: #62748b;
+  --surface: #ffffff;
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; background: #f3f7fc; color: var(--ink); }
+.page-shell { width: min(760px, calc(100% - 32px)); margin: 40px auto 72px; }
+.hero { text-align: center; margin-bottom: 32px; }
+.eyebrow { margin: 0 0 8px; color: var(--blue); font-size: .78rem; font-weight: 800; letter-spacing: .14em; }
+h1 { margin: 0; font-size: clamp(1.8rem, 6vw, 2.5rem); }
+.hero p, .lead, .skill-years p { color: var(--muted); line-height: 1.7; }
+.progress { margin: 0 4px 18px; font-weight: 700; font-size: .85rem; }
+.progress-track { height: 6px; margin-top: 9px; background: #dce6f2; border-radius: 999px; overflow: hidden; }
+.progress-track i { display: block; width: 25%; height: 100%; background: var(--blue); transition: width .2s; }
+.step, .success { display: none; padding: 30px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 8px 30px rgba(18,50,82,.06); }
+.step.is-active, .success { display: block; }
+h2 { margin: 0 0 8px; font-size: 1.5rem; }
+h3 { margin: 0; font-size: 1.05rem; }
+.field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+label, fieldset { display: block; margin: 22px 0 0; font-weight: 700; font-size: .94rem; }
+fieldset { min-width: 0; padding: 0; border: 0; }
+legend { padding: 0; }
+b { margin-left: 4px; color: #d1334d; font-size: .72rem; }
+input { display: block; width: 100%; margin-top: 8px; padding: 12px 13px; border: 1px solid #b8c8dc; border-radius: 9px; background: #fff; color: var(--ink); font: inherit; }
+input:focus { outline: 3px solid #bcd4ff; border-color: var(--blue); }
+.choices { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 11px; }
+.choices button { min-width: 116px; flex: 1 1 130px; padding: 11px 14px; border: 1px solid #9dbcf0; border-radius: 999px; background: #f8fbff; color: #255597; cursor: pointer; font: inherit; font-weight: 700; transition: .15s; }
+.choices button:hover, .choices button.is-selected { border-color: var(--blue); background: var(--blue); color: #fff; }
+.compact button { min-width: 90px; flex-basis: 90px; }
+.conditional { display: none; }
+.conditional.is-visible { display: block; }
+.category { margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--line); }
+.category:first-child { margin-top: 0; padding-top: 0; border: 0; }
+.category h3 { margin-bottom: 2px; }
+.skill-years { margin-top: 32px; padding: 22px; border-radius: 12px; background: var(--blue-soft); }
+.skill-year-row { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid #cfddf1; font-weight: 700; }
+.skill-year-row:last-child { border: 0; }
+.skill-year-row .choices { margin: 0; }
+.skill-year-row .choices button { min-width: unset; flex-basis: 70px; padding: 8px; font-size: .78rem; }
+.question-list > * { padding-bottom: 21px; border-bottom: 1px solid var(--line); }
+.question-list > *:last-child { border: 0; }
+.consent { display: flex; align-items: start; gap: 9px; font-size: .84rem; line-height: 1.6; }
+.consent input { width: 18px; margin: 2px 0 0; }
+.actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
+.actions button { min-width: 140px; padding: 14px 25px; border: 0; border-radius: 999px; background: var(--blue); color: #fff; cursor: pointer; font: inherit; font-weight: 800; }
+.actions .secondary { background: #dce7f5; color: var(--ink); }
+.form-error { min-height: 1.2em; margin: 18px 0 0; color: #bf263d; font-weight: 700; }
+.success { text-align: center; }
+
+@media (max-width: 600px) {
+  .page-shell { width: min(100% - 20px, 760px); margin-top: 18px; }
+  .step, .success { padding: 22px 18px; }
+  .field-grid { grid-template-columns: 1fr; }
+  .skill-year-row { grid-template-columns: 1fr; gap: 8px; }
+  .choices button { flex-basis: 110px; }
+}
