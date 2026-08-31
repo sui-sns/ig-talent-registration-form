@@ -1,4 +1,4 @@
-const ENDPOINT = "https://script.google.com/macros/s/AKfycbxlhhL9QStiy62rD1GmniFQk_qfm64mH_1cYiNoR4GQJy091uX9uf3z4v2JZYIVMGVYyQ/exec";
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbx6fSxk4GDyUILWyz0GuC6K_8ogCNWtwDEQGcDCf9aarghxVqv8RWxVZkmOlp6lrvQk9A/exec";
 const form = document.querySelector("#registration-form");
 const steps = [...document.querySelectorAll(".step")];
 const progressLabel = document.querySelector("#progress-label");
