@@ -1,0 +1,3 @@
+# Apps Script management files stay local; GitHub Pages only needs static assets.
+Code.gs
+deploy_response_endpoint.py
