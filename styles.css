@@ -19,7 +19,7 @@ h1 { margin: 0; font-size: clamp(1.8rem, 6vw, 2.5rem); }
 .progress-track { height: 6px; margin-top: 9px; background: #dce6f2; border-radius: 999px; overflow: hidden; }
 .progress-track i { display: block; width: 25%; height: 100%; background: var(--blue); transition: width .2s; }
 .step, .success { display: none; padding: 30px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 8px 30px rgba(18,50,82,.06); }
-.step.is-active, .success { display: block; }
+.step.is-active, .success:not([hidden]) { display: block; }
 h2 { margin: 0 0 8px; font-size: 1.5rem; }
 h3 { margin: 0; font-size: 1.05rem; }
 .field-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
