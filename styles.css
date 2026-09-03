@@ -29,6 +29,7 @@ fieldset { min-width: 0; padding: 0; border: 0; }
 legend { padding: 0; }
 b { margin-left: 4px; color: #d1334d; font-size: .72rem; }
 input { display: block; width: 100%; margin-top: 8px; padding: 12px 13px; border: 1px solid #b8c8dc; border-radius: 9px; background: #fff; color: var(--ink); font: inherit; }
+input[type="hidden"] { display: none; }
 input:focus { outline: 3px solid #bcd4ff; border-color: var(--blue); }
 small { display: block; margin-top: 6px; color: var(--muted); font-size: .78rem; font-weight: 500; }
 .choices { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 11px; }
@@ -49,6 +50,8 @@ small { display: block; margin-top: 6px; color: var(--muted); font-size: .78rem;
 .question-list > *:last-child { border: 0; }
 .consent { display: flex; align-items: start; gap: 9px; font-size: .84rem; line-height: 1.6; }
 .consent input { width: 18px; margin: 2px 0 0; }
+.turnstile-area { margin-top: 22px; }
+.turnstile-area p { margin: 0 0 8px; color: var(--muted); font-size: .82rem; font-weight: 700; }
 .actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
 .actions button { min-width: 140px; padding: 14px 25px; border: 0; border-radius: 999px; background: var(--blue); color: #fff; cursor: pointer; font: inherit; font-weight: 800; }
 .actions .secondary { background: #dce7f5; color: var(--ink); }

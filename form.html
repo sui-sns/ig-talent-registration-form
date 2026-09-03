@@ -78,6 +78,10 @@
             <label>勤務可能エリア<input name="workArea" placeholder="例：東京都内、神奈川県、全国フルリモート" /></label>
             <fieldset><legend>イグニッション・ギルドとの希望する関わり方 <b>必須</b></legend><div class="choices multi" id="ig-involvement"></div></fieldset>
             <label class="consent"><input name="privacyConsent" type="checkbox" required /> 入力情報を、案件紹介・採用連絡・人材管理に利用することに同意します。 <b>必須</b></label>
+            <div class="turnstile-area">
+              <p>送信前にセキュリティ確認を行います。</p>
+              <div class="cf-turnstile" data-sitekey="0x4AAAAAAElimgB9DqPKwpkK"></div>
+            </div>
           </div>
         </section>
 
@@ -86,6 +90,7 @@
       </form>
       <section id="success" class="success" hidden><h2>ご登録ありがとうございます。</h2><p>条件に合う案件・採用情報がある場合、イグニッション・ギルドよりご連絡します。</p></section>
     </main>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="app.js?v=20260831-1506"></script>
   </body>
 </html>

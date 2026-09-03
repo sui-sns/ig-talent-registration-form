@@ -228,12 +228,14 @@ async function readResumeFile() {
 async function collectData() {
   const data = Object.fromEntries(new FormData(form).entries());
   delete data.resume;
+  const turnstileToken = form.querySelector("[name='cf-turnstile-response']")?.value;
   return {
     ...data,
     ...answers,
     skills: [...selectedSkills],
     skillExperience,
     resumeFile: await readResumeFile(),
+    turnstileToken,
     submittedAt: new Date().toISOString(),
   };
 }
@@ -241,6 +243,10 @@ async function collectData() {
 async function submitForm(event) {
   event.preventDefault();
   if (!validateStep()) return;
+  if (!form.querySelector("[name='cf-turnstile-response']")?.value) {
+    errorBox.textContent = "セキュリティ確認が完了していません。少し待ってからもう一度お試しください。";
+    return;
+  }
   submitButton.disabled = true;
   submitButton.textContent = "送信中…";
   try {
